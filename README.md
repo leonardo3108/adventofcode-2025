@@ -28,7 +28,7 @@ I'll explore GitHub Copilot for helping me to build, fix and optimize the code.
 ## Puzzles
 
 * [Day 1](./day-01.py) ⭐⭐
-* Day 2
+* [Day 2](./day-02.py) ⭐⭐
 * Day 3
 * Day 4
 * Day 5
