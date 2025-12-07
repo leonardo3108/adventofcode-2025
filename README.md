@@ -32,7 +32,7 @@ I'll explore GitHub Copilot for helping me to build, fix and optimize the code.
 * [Day 3](./day-03.py) ⭐⭐
 * [Day 4](./day-04.py) ⭐⭐
 * [Day 5](./day-05.py) ⭐⭐
-* Day 6
+* [Day 6](./day-06.py) ⭐⭐
 * Day 7
 * Day 8
 * Day 9
