@@ -198,7 +198,8 @@ Apply the many-worlds interpretation of quantum tachyon splitting to your manifo
 
 Solution:
  - Timelines can be tracked by maintaining a dictionary where keys are x-positions and values are the count of timelines at that position.
- - For each row in the grid:
+ - These positions are initialized with zero counts, except for the starting position 'S' which starts with one timeline.
+ - For each row in the grid (after the starting row):
     - For each beam position:
        - Take the current count of timelines at that position. Let's call it n.
        - If it encounters a splitter:
@@ -206,6 +207,11 @@ Solution:
          - set the current position's count to 0.
        - If it encounters empty space, do nothing with timelines.
  - The total number of timelines is the sum of all values in the dictionary after processing the entire grid.
+
+Additional otimizations:
+ - Use a single pass through the grid, updating the timelines dictionary in place, and counting splits as you go. When processing each row:
+   - splits are detected by checking if the current cell is a splitter and if there are timelines at that position. If so, increment the split counter.
+   - positions with timelines but are keeped as beam positions (|) in the grid for visualization.
 '''
 
 input = '''
@@ -233,42 +239,31 @@ grid = [list(line) for line in input.strip().split('\n')]
 # for row in grid: print(''.join(row))
 
 def count_timelines(timelines):
-    result = 0
-    for x in timelines.keys():
-        result += timelines[x]
-    return result
+    return sum(timelines.values())
 
-beam_positions = []
 timelines = {}
-split_count = 0
+splits = 0
 
 for y in range(len(grid)):
     if 'S' in grid[y]:
-        beam_positions.append(grid[y].index('S'))
         for x in range(len(grid[y])):
             if grid[y][x] == '.':
                 timelines[x] = 0
             elif grid[y][x] == 'S':
                 timelines[x] = 1
-    elif beam_positions:
-        for x in beam_positions.copy():
-            if grid[y][x] == '.':
-                grid[y][x] = '|'
-            elif grid[y][x] == '^':
-                grid[y][x-1] = '|'
-                grid[y][x+1] = '|'
-                beam_positions.remove(x)
-                if x - 1 not in beam_positions:
-                    beam_positions.append(x - 1)
-                if x + 1 not in beam_positions:
-                    beam_positions.append(x + 1)
-                split_count += 1
+    else:
         for x in timelines.keys():
-            if grid[y][x] == '^':
-                timelines[x-1] += timelines[x]
-                timelines[x+1] += timelines[x]
-                timelines[x] = 0
-    # print(f"{''.join(grid[y])} {split_count} splits {count_timelines(timelines)} timelines.")
+            if timelines[x] > 0:
+                if grid[y][x] == '.':
+                    grid[y][x] = '|'
+                elif grid[y][x] == '^':
+                    grid[y][x-1] = '|'
+                    grid[y][x+1] = '|'
+                    timelines[x-1] += timelines[x]
+                    timelines[x+1] += timelines[x]
+                    timelines[x] = 0
+                    splits += 1
+    # print(f"{''.join(grid[y])} {splits} splits {count_timelines(timelines)} timelines.")
 
-print(f"Part One - Total beam splits: {split_count}")
+print(f"Part One - Total beam splits: {splits}")
 print(f"Part Two - Total timelines: {count_timelines(timelines)}")
