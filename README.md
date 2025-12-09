@@ -34,7 +34,7 @@ I'll explore GitHub Copilot for helping me to build, fix and optimize the code.
 * [Day 5](./day-05.py) ⭐⭐
 * [Day 6](./day-06.py) ⭐⭐
 * [Day 7](./day-07.py) ⭐⭐
-* Day 8
+* [Day 8](./day-08.py) ⭐⭐
 * Day 9
 * Day 10
 * Day 11
