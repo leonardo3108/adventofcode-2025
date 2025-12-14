@@ -37,7 +37,7 @@ I'll explore GitHub Copilot for helping me to build, fix and optimize the code.
 * [Day 8](./day-08.py) ⭐⭐
 * Day 9
 * Day 10
-* Day 11
+* [Day 11](./day-11.py) ⭐⭐
 * Day 12
 
 ## Solutions / Representation:
